@@ -1,0 +1,23 @@
+version: "3.2"
+
+services:
+  papercups:
+    image: papercups/papercups:latest
+    command: sh -c "sleep 10 && /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh db init-admin && /entrypoint.sh run"
+
+    ports:
+      - "3000:3000"
+      - "4000:4000"
+    command:
+      - ./docker-entrypoint.sh
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "ecto://postgres:postgres@db/postgres"
+  db:
+    image: postgres:alpine
+    container_name: papercups
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
