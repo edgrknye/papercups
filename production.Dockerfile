@@ -44,10 +44,9 @@ RUN mix release
 ENV LANG=C.UTF-8
 
 COPY docker-entrypoint.sh /entrypoint.sh
-RUN chmod a+x /entrypoint.sh && \
-    adduser -h /app -u 1000 -s /bin/sh -D papercupsuser
+RUN chmod a+x /entrypoint.sh
 
-# COPY /build/_build/prod/rel/papercups /app
+RUN adduser -home /app -u 1000 --shell /bin/sh --disabled-password  --gecos "" papercupsuser
 RUN chown -R papercupsuser:papercupsuser /app
 
 USER papercupsuser
