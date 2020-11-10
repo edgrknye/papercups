@@ -14,7 +14,6 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
 
 
 # Client side
-
 COPY assets/package.json assets/package-lock.json ./assets/
 RUN npm install --prefix=assets
 
@@ -24,9 +23,6 @@ ENV GENERATE_SOURCEMAP=false
 COPY priv priv
 COPY assets assets
 RUN npm run build --prefix=assets
-
- 
-
 
 COPY mix.exs mix.lock ./
 COPY config config
